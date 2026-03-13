@@ -4511,39 +4511,52 @@
   <br/>
     <!--   Crown88 Web -->
 
+
+
+
+
 <script>
-  const withdrawTicker = document.getElementById("withdrawTicker");
+const ticker = document.getElementById("withdrawTicker");
 
-  function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+function randomUser() {
+  return Math.floor(Math.random() * (654826 - 496453 + 1)) + 496453;
+}
 
-  function randomAmount() {
-    const possibleAmounts = [
-      100, 200, 300, 500, 700, 1000, 1500, 2000, 2500, 3000,
-      3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000,
-      8500, 9000, 9500, 10000, 12000, 15000, 18000, 20000, 25000, 30000
-    ];
-    return possibleAmounts[Math.floor(Math.random() * possibleAmounts.length)];
-  }
+function randomAmount() {
+  const amounts = [
+    100, 200, 300, 500, 700,
+    1000, 1500, 2000, 2500, 3000,
+    3500, 4000, 4500, 5000, 6000,
+    7000, 8000, 9000, 10000, 12000,
+    15000, 18000, 20000, 25000, 30000
+  ];
+  return amounts[Math.floor(Math.random() * amounts.length)];
+}
 
-  function buildTickerItems(count = 30) {
-    let html = "";
+function createTickerMessage() {
+  const user = randomUser();    
+  const amount = randomAmount().toLocaleString();
 
-    for (let i = 0; i < count; i++) {
-      const userId = randomInt(496453, 654826);
-      const amount = randomAmount().toLocaleString();
-      html += `<span class="ticker-item">USER ID ${userId} HAS WITHDRAWN ${amount} PKR</span>`;
-    }
+  const item = document.createElement("span");
+  item.className = "ticker-item";
+  item.textContent = `USER ID ${user} HAS WITHDRAWN ${amount} PKR`;
 
-    return html;
-  }
+  ticker.innerHTML = "";
+  ticker.appendChild(item);
 
-  if (withdrawTicker) {
-    withdrawTicker.innerHTML = buildTickerItems(40);
-  }
+  requestAnimationFrame(() => {
+    item.classList.add("run");
+  });
+
+  item.addEventListener("animationend", () => {
+    createTickerMessage();
+  }, { once: true });
+}
+
+if (ticker) {
+  createTickerMessage();
+}
 </script>
-
 
 
 

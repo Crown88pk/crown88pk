@@ -46,7 +46,7 @@
   </script>
   <script src="bootstrap/4.5.2/js/bootstrap.min.js">
   </script>
-  <link =""="" defer="" href="assets/css/style.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css">
   <link crossorigin="anonymous" href="ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" referrerpolicy="no-referrer" rel="stylesheet"/>
   <link href="index-2.html" rel="canonical"/>
   <script type="text/javascript">
@@ -72,11 +72,12 @@
 
 </div>
    <section class="slot">
-    <marquee bgcolor="green" style="font-family: Arial; font-size:16px; color:#ffffff;">
-     <b>
-      The most accurate win rate information on CROWN88 | Click on the desired game to know the patterns and tricks.
-     </b>
-    </marquee>
+    <div class="top-live-ticker">
+  <div class="live-badge">LIVE</div>
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="withdrawTicker"></div>
+  </div>
+</div>
     <div class="adv">
      
      <div class="banner slider-banner">
@@ -2119,5 +2120,51 @@
   </div>
   <br/>
   <!--   Crown88 Web -->
+
+
+
+  <script>
+const ticker = document.getElementById("withdrawTicker");
+
+function randomUser() {
+  return Math.floor(Math.random() * (654826 - 496453 + 1)) + 496453;
+}
+
+function randomAmount() {
+  const amounts = [
+    100, 200, 300, 500, 700,
+    1000, 1500, 2000, 2500, 3000,
+    3500, 4000, 4500, 5000, 6000,
+    7000, 8000, 9000, 10000, 12000,
+    15000, 18000, 20000, 25000, 30000
+  ];
+  return amounts[Math.floor(Math.random() * amounts.length)];
+}
+
+function createTickerMessage() {
+  if (!ticker) return;
+
+  const user = randomUser();
+  const amount = randomAmount().toLocaleString();
+
+  const item = document.createElement("span");
+  item.className = "ticker-item";
+  item.textContent = `USER ID ${user} HAS WITHDRAWN ${amount} PKR`;
+
+  ticker.innerHTML = "";
+  ticker.appendChild(item);
+
+  requestAnimationFrame(() => {
+    item.classList.add("run");
+  });
+
+  item.addEventListener("animationend", () => {
+    setTimeout(createTickerMessage, 800);
+  }, { once: true });
+}
+
+createTickerMessage();
+</script>
+
  </body>
 </html>
